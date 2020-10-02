@@ -1,0 +1,56 @@
+<%- include ("../partials/header") %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <p class="lead">2nd-Hand Market</p>
+            <div class="list-group">
+                <li class="list-group-item">Address: <%= market.address %></li>
+                <li class="list-group-item">Phone Number: <%= market.phone %></li>
+                <li class="list-group-item">Price: $<%= market.price %></li>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="thumbnail">
+                <div class="caption-full">
+                    <h4><a><%=market.name%></a></h4>
+					<p><img class="img-responsive" src="<%= market.image %>"></p>
+					<p>Description: <%= market.description %></p>
+					<% if(currentUser && market.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+                        <a class="btn btn-xs btn-warning pull-right" href="/markets/<%= market._id %>/edit">Edit</a>
+                        <form class="delete-form" action="/markets/<%= market._id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-xs btn-danger pull-right">Delete</button>
+                        </form>
+                    <% }%>
+                    <p>
+                        <em>Submitted By <a href="/users/<%= market.author.id %>"><%= market.author.username %></a>, <%= moment(market.createAt).fromNow() %></em>
+                    </p>
+                </div>				
+            </div>
+            <div class="well">
+                <div class="text-right">
+                    <a class="btn btn-success" href="/markets/<%= market._id %>/comments/new">Add A New Question</a>
+                </div>
+                <hr>
+                <% market.comments.forEach(function(comment){ %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong><%= comment.author.username %></strong>
+                            <span class="pull-right"><%= moment(comment.createAt).fromNow() %></span>
+                            <p>
+                                <%= comment.text %> 
+                            </p>
+                        <% if(currentUser && comment.author.id.equals(currentUser._id)  || currentUser && currentUser.isAdmin){ %>
+                            <a class="btn btn-xs btn-warning" 
+                               href="/markets/<%=market._id %>/comments/<%=comment._id %>/edit">Edit</a>
+                            <form class="delete-form" action="/markets/<%=market._id %>/comments/<%=comment._id %>?_method=DELETE" method="POST">
+                                <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                            </form>
+                        <% } %>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include ("../partials/footer") %>

@@ -1,0 +1,40 @@
+<%- include ("../partials/header") %>
+<div class="container">
+	<div class="row">
+		<h1 style="text-align: center">Edit <%= market.name %></h1>
+		<div style="width: 30%; margin: 25px auto;">
+			<form action="/markets/<%= market._id %>?_method=PUT" method="POST">
+				<div class="form-group">
+					<input class="form-control" type="text" name="market[name]" value="<%= market.name %>">
+				</div>
+
+				<div class="form-group">
+                    <label for="image">Image</label>
+                    <input type="file" id="image" name="image" accept="image/*" required>
+                </div>
+				
+				<div class="form-group">
+					<input class="form-control" type="number" name="market[price]" value="<%= market.price %>" min="0.01" step="0.01">
+				</div>
+				
+				<div class="form-group">
+                    <input class="form-control" type="text" name="market[address]" value="<%= market.address %>">
+                </div>
+				
+				<div class="form-group">
+                    <input class="form-control" type="text" name="market[phone]" value="<%= market.phone %>">
+                </div>
+				
+				<div class="form-group">
+					<input class="form-control" type="text" name="market[description]" value="<%= market.description %>">
+				</div>
+				<div class="form-group">
+					<button class="btn btn-lg btn-primary btn-block">Submit!</button>
+				</div>
+			</form>
+			<a href="/markets">Go Back</a>
+		</div>
+	</div>
+</div>
+
+<%- include ("../partials/footer") %>

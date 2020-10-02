@@ -1,0 +1,40 @@
+<%- include ("../partials/header") %>
+
+<div class="container">
+     <header class="jumbotron">
+         <div class="container">
+             <h2>Welcome To 2nd-Hand Market!</h2>
+             <p>View all 2nd-hand items</p>
+			 
+				 <form action="/markets" method="GET" class="form-inline">
+					 <a class="btn btn-primary btn-lg form-inline" href="/markets/new">Add New Items</a>
+					 <div class="form-group pull-right">
+						 <input type="text" name="search" placeholder="Items search.." class="form-control">
+						 <input type="submit" value="Search" class="btn btn-default">
+					 </div>
+				 </form>
+			 
+         </div>
+     </header>
+
+     <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+        <% markets.forEach(function(market){ %>
+            <div class="col-md-3 col-sm-6">
+                <div class="thumbnail">
+					<div class="image">
+						<img src="<%= market.image %>" id="index">
+					</div>          
+                   <div class="caption">
+                       <h4><%= market.name %></h4>
+                   </div>
+					<p>
+						<a href="/markets/<%- market._id %>" class="btn btn-primary">More Info</a>
+					</p>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+</div>
+
+
+<%- include ("../partials/footer") %>
